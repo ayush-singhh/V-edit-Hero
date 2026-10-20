@@ -1,8 +1,9 @@
 # Tools, accounts, and API keys
 
-Nate uses **ElevenLabs Scribe for transcription** and **Kie.ai for generated video
-and image assets**. These are his preferred services, not requirements for every
-edit. Bring your own accounts and credits, and configure only what you use.
+This workspace uses **local Whisper for transcription** and **OmniVoice for
+voiceover**, both free and on your own computer. Nate's upstream kit uses
+ElevenLabs Scribe for transcription and Kie.ai for generated video and image
+assets; those stay available with your own accounts and credits.
 
 ## What you need
 
@@ -11,7 +12,8 @@ edit. Bring your own accounts and credits, and configure only what you use.
 | Codex or Claude Code | Following the agent-guided editing skills | Your own assistant access. External service API credits are separate. |
 | Node.js 22+, npm, Git, FFmpeg with ffprobe, and Chrome/Chromium | Local editing, preview, and rendering | Install on your computer. See [setup](SETUP.md). |
 | HyperFrames and GSAP | Video compositions and animation | Installed by `npm ci`. Rendering runs locally. Some templates use online fonts or CDNs; localize selected assets for final rendering. |
-| ElevenLabs Scribe | Nate's default for speech transcription | Your own key with `speech_to_text` access and available usage. The included helper sends audio to ElevenLabs. |
+| OmniVoice and local Whisper | This workspace's default voiceover and transcription | `npm run setup:voice` installs both into `.venv-voice/`. Python 3.10+, several GB of model downloads from Hugging Face, and a GPU recommended. No key; nothing is uploaded. |
+| ElevenLabs Scribe | Nate's upstream default for speech transcription | Your own key with `speech_to_text` access and available usage. The included helper sends audio to ElevenLabs. |
 | OpenAI Whisper API | Alternative cloud transcription | Your own OpenAI API key and API billing. Ask the assistant to configure the call and normalize its word timestamps. |
 | Local Whisper or whisper.cpp | Alternative transcription on your computer | Separate runtime and model installation. No cloud transcription key; needs model downloads, disk space, and local compute. |
 | Kie.ai | Optional generated moving B-roll, images, and other supported assets | Your own account, key, and credits. Existing footage and supplied assets can be used instead. |
@@ -20,13 +22,28 @@ edit. Bring your own accounts and credits, and configure only what you use.
 The synthetic starter and checks need no paid transcription or generation API.
 Choose a provider only when the next stage needs it.
 
+## OmniVoice and local Whisper: the workspace default
+
+```sh
+npm run setup:voice                       # once; add -- --download to prefetch weights
+npm run transcribe -- video-projects/my-video/assets/raw.mp4
+npm run voice -- --script vo.txt --ref-audio me.wav --output vo.wav
+```
+
+`transcribe` runs Whisper large-v3-turbo, the ASR model OmniVoice ships with, and
+writes the word-level JSON shape below. OmniVoice
+([k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice), Apache-2.0) is
+text-to-speech only; it clones a voice from a 3-10 second clip, designs one from
+attributes, or picks one. See `.claude/skills/omnivoice/SKILL.md` for options,
+Whisper's limits (it drops fillers and stutters), and the voice-cloning consent rule.
+
 ## ElevenLabs: the included helper
 
 Create a key in [ElevenLabs API settings](https://elevenlabs.io/app/settings/api-keys)
 and put it in the root `.env` as `ELEVENLABS_API_KEY`. Then run:
 
 ```sh
-node scripts/transcribe-elevenlabs.mjs video-projects/my-video/assets/raw.mp4
+npm run transcribe:elevenlabs -- video-projects/my-video/assets/raw.mp4
 ```
 
 The helper writes word-level JSON beside the input. Reuse a verified transcript
@@ -109,8 +126,8 @@ aspect ratio, and framing in the final edit.
 
 These are workflow options, not a claim that every example used them:
 
-- **Narration:** HyperFrames guides describe local Kokoro TTS with extra runtime
-  and model setup. ElevenLabs and HeyGen TTS are also mentioned; each needs your
+- **Narration:** this workspace uses OmniVoice (`npm run voice`). HyperFrames
+  guides also describe local Kokoro TTS with extra runtime and model setup. ElevenLabs and HeyGen TTS are also mentioned; each needs your
   service access and a configured API or connector.
 - **Website capture:** Gemini can optionally provide richer image descriptions.
   Basic capture does not require that key.

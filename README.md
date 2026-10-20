@@ -52,10 +52,11 @@ https://github.com/user-attachments/assets/4ad48761-d14c-407a-9dec-1b76a9afb04a
 
 ## Tools and optional services
 
-**Nate uses ElevenLabs Scribe to transcribe and Kie.ai to generate videos and
-image assets.** Bring your own API keys and credits when using those services.
-You can ask the assistant to use OpenAI Whisper or local Whisper instead, or
-supply an existing word-level transcript. Generated assets are optional.
+**This workspace transcribes locally with Whisper and makes voiceover with
+[OmniVoice](https://github.com/k2-fsa/OmniVoice)** (Apache-2.0), both on your own
+computer with no API key: run `npm run setup:voice` once, then `npm run transcribe`
+and `npm run voice` (the `omnivoice` skill). Nate's upstream defaults, ElevenLabs
+Scribe and Kie.ai, remain available with your own keys. Generated assets are optional.
 
 The local starter needs no paid transcription or generation API. See the
 [tools, accounts, and API-key guide](docs/TOOLS-AND-API-KEYS.md) for required tools,
@@ -76,8 +77,8 @@ npm test
 ```
 
 Setup checks the tools and creates `.env` only if it is absent. Add only the keys
-for services you choose. The included transcription helper uses ElevenLabs;
-Whisper and Kie.ai integrations need the setup described in the
+for services you choose. Local transcription and voiceover need
+`npm run setup:voice` (Python 3.10+; a GPU is recommended). Kie.ai needs the setup described in the
 [tools guide](docs/TOOLS-AND-API-KEYS.md). [Setup and troubleshooting](docs/SETUP.md).
 
 ## Render your first example

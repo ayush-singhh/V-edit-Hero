@@ -26,6 +26,7 @@ For one stage, load the matching local skill:
 | New motion-graphics video from a brief | `make-a-video` |
 | Website-inspired compositions | `website-to-hyperframes` |
 | Full raw-video edit | `edit-video` |
+| Local transcription and OmniVoice voiceover | `omnivoice` |
 | Silence removal | `cut-silences` |
 | Retakes, false starts, or stutters | `cut-mistakes` |
 | Narrative arc, persistent world, and visual callbacks | `video-storytelling` |
@@ -60,10 +61,11 @@ new personal footage. Never print secrets or copy private media into library exa
 
 Before choosing a transcription, asset-generation, or voiceover service, read
 `docs/TOOLS-AND-API-KEYS.md` and check the user's provider choice and local setup.
-ElevenLabs Scribe is Nate's default; honor requests for OpenAI Whisper, local
-Whisper, or another provider. Normalize verified word timestamps for the cutting
-tools. The included transcription script is ElevenLabs-only. Kie.ai is optional
-and needs a configured integration and credits. Reuse existing transcripts and
+This workspace transcribes locally with Whisper (`npm run transcribe`) and makes
+voiceover with OmniVoice (`npm run voice`); load the `omnivoice` skill for both.
+Use ElevenLabs Scribe (`npm run transcribe:elevenlabs`) or another provider only
+when the user asks. Normalize verified word timestamps for the cutting tools.
+Kie.ai is optional and needs a configured integration and credits. Reuse existing transcripts and
 assets; make any unapproved uploads or paid calls concrete before asking.
 
 Cut silences first; use its edited video AND retimed transcript for cut-mistakes.

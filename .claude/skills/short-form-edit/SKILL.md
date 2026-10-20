@@ -37,10 +37,10 @@ the next edit starts from it. Record the note and the resulting rule together.
    and video-storytelling skills before composition work. Use the user's brief
    over aesthetic defaults. Keep all artifacts in `video-projects/<slug>/`.
 2. Probe the supplied source and reference: duration, dimensions, frame rate,
-   audio, and existing transcript identity. Preserve originals. Transcribe with
-   the student's chosen provider; ElevenLabs Scribe is Nate's default. Read
-   `docs/TOOLS-AND-API-KEYS.md` for Whisper alternatives, word-timestamp
-   normalization, credentials, and service costs. Never substitute an older take.
+   audio, and existing transcript identity. Preserve originals. Transcribe
+   locally with `npm run transcribe` and make any voiceover with OmniVoice
+   (`../omnivoice/SKILL.md`); use ElevenLabs only when the user asks. Read
+   `docs/TOOLS-AND-API-KEYS.md` for word-timestamp normalization and services. Never substitute an older take.
 3. When a reference is supplied, inspect the entire reel using contact sheets,
    individual full-size frames, and contiguous frame strips at representative
    transitions. Review its sound when an audio-capable review surface is available.

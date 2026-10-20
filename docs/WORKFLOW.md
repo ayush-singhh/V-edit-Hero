@@ -6,12 +6,13 @@ From the repository root run `npm run new-video -- my-video`. Put your recording
 at `video-projects/my-video/assets/raw.mp4`. Preserve this original.
 
 ```sh
-node scripts/transcribe-elevenlabs.mjs video-projects/my-video/assets/raw.mp4
+npm run setup:voice    # once: local Whisper + OmniVoice in .venv-voice
+npm run transcribe -- video-projects/my-video/assets/raw.mp4
 ```
 
-This is Nate's default and uploads audio to ElevenLabs using your key and credits.
-You may choose OpenAI Whisper, local Whisper, or another provider instead; see
-[provider setup and transcript normalization](TOOLS-AND-API-KEYS.md).
+This runs Whisper large-v3-turbo on your computer; nothing is uploaded. To use
+ElevenLabs Scribe instead, run `npm run transcribe:elevenlabs -- <input>` with
+your key; see [provider setup and transcript normalization](TOOLS-AND-API-KEYS.md).
 You can also supply an existing word-level
 JSON transcript with `words: [{text, start, end}]` and `audio_duration_secs`.
 

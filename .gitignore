@@ -45,3 +45,7 @@ Thumbs.db
 
 # Claude Code Remember plugin session memory.
 .remember/
+
+# Local OmniVoice/Whisper environment and saved voice prompts (biometric data).
+.venv-voice/
+*.pt
